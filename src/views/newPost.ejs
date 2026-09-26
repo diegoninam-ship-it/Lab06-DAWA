@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nuevo Post</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper container">
+      <a href="/posts" class="brand-logo">Social Media</a>
+    </div>
+  </nav>
+
+  <div class="container" style="margin-top: 40px; max-width: 600px;">
+    <div class="card-panel">
+      <h5 class="section-title" style="font-size: 1.4rem;">Crear nuevo Post</h5>
+      <form action="/posts" method="POST" style="margin-top: 20px;">
+        <div class="input-field">
+          <select name="userId" required>
+            <option value="" disabled selected>Elige un autor</option>
+            <% users.forEach(user => { %>
+              <option value="<%= user._id %>"><%= user.name %> <%= user.lastName %></option>
+            <% }) %>
+          </select>
+          <label>Autor</label>
+        </div>
+        <div class="input-field">
+          <input id="title" type="text" name="title" minlength="5" maxlength="30" required>
+          <label for="title">Título</label>
+        </div>
+        <div class="input-field">
+          <textarea id="content" class="materialize-textarea" name="content" minlength="10" required></textarea>
+          <label for="content">Contenido</label>
+        </div>
+        <div class="input-field">
+          <input id="imageUrl" type="url" name="imageUrl">
+          <label for="imageUrl">URL de imagen (opcional)</label>
+        </div>
+        <div class="input-field">
+          <input id="hashtags" type="text" name="hashtags" placeholder="nodejs, mongodb, backend">
+          <label for="hashtags">Hashtags (separados por coma)</label>
+        </div>
+        <button type="submit" class="btn waves-effect waves-light">Publicar</button>
+        <a href="/posts" class="btn grey waves-effect waves-light">Cancelar</a>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      M.FormSelect.init(document.querySelectorAll('select'));
+    });
+  </script>
+</body>
+</html>
